@@ -12,5 +12,9 @@ data class Contact(
     val firstName: String,
     val lastName: String,
     val phoneNumber: String,
+    val isFavorite: Boolean) {
 
-    val isFavorite: Boolean = false)
+    constructor(firstName: String, lastName: String, phoneNumber: String) : this(0, firstName, lastName, phoneNumber, false) {
+
+    }
+}
