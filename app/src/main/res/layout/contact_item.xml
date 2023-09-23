@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_contact_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/general_margin">
+
+        <ImageView
+            android:id="@+id/img_contact"
+            android:layout_width="@dimen/contact_img_width"
+            android:layout_height="@dimen/contact_img_width"
+            android:src="@drawable/contact_no_image" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/general_margin"
+            android:layout_toEndOf="@id/img_contact"
+            tools:text="John Doe" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/rl_contact_info"
+        android:background="@color/black" />
+
+</RelativeLayout>
