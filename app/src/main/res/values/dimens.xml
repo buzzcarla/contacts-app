@@ -12,6 +12,7 @@
 
 
     <dimen name="medium_padding">15dp</dimen>
+    <dimen name="large_padding">50dp</dimen>
 
 
     <dimen name="toolbar_height">65dp</dimen>
@@ -20,6 +21,7 @@
 
 
     <dimen name="summary_image_size">85dp</dimen>
+    <dimen name="no_contacts_image_size">200dp</dimen>
 
     <dimen name="medium_text">12sp</dimen>
     <dimen name="large_text">18sp</dimen>
