@@ -7,17 +7,22 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codev.recruitment.carlaberdin.R;
 import com.codev.recruitment.carlaberdin.adapter.ContactsViewAdapter;
 import com.codev.recruitment.carlaberdin.databinding.FragmentAllContactsBinding;
 import com.codev.recruitment.carlaberdin.lib.ContactsLib;
 import com.codev.recruitment.carlaberdin.repository.data.Contact;
+import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
 import java.util.List;
 
@@ -25,6 +30,8 @@ import java.util.List;
 public class AllContactsFragment extends Fragment {
 
     private FragmentAllContactsBinding binding;
+
+    private ContactViewModel mContactVM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,9 @@ public class AllContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        mContactVM = new ViewModelProvider(requireActivity()).get(ContactViewModel.class);
 
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_all_contacts, container, false);
@@ -55,16 +65,17 @@ public class AllContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        binding.recyclerContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        ContactsLib contactsLib = new ContactsLib(getActivity().getApplicationContext());
-        contactsLib.getAllContacts().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
+        NavController navController = Navigation.findNavController(view);
+        mContactVM.getAllContacts().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
-
-                ContactsViewAdapter adapter = new ContactsViewAdapter(contacts);
+                ContactsViewAdapter adapter = new ContactsViewAdapter(contacts, new ContactsViewAdapter.CustomClickListener() {
+                    @Override
+                    public void contactClicked(Contact contact) {
+                        navController.navigate(R.id.action_allContactsFragment_to_contactSummaryFragment);
+                        // Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
+                    }
+                });
                 binding.setMyAdapter(adapter);
             }
         });

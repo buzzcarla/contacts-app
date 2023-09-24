@@ -21,8 +21,12 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
 
     List<Contact> allContacts;
 
-    public ContactsViewAdapter(List<Contact> allContacts) {
+    CustomClickListener contactItemClickListener;
+
+    public ContactsViewAdapter(List<Contact> allContacts, CustomClickListener customClickListener) {
         this.allContacts = allContacts;
+
+        contactItemClickListener = customClickListener;
     }
 
     @NonNull
@@ -40,7 +44,7 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ContactsViewAdapter.ViewHolder holder, int position) {
         Contact contact = allContacts.get(position);
-        holder.bind(contact);
+        holder.bind(contact, contactItemClickListener);
     }
 
     @Override
@@ -56,8 +60,9 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
             this.contactItemBinding = userItemBinding;
         }
 
-        public void bind(Object obj) {
+        public void bind(Object obj, CustomClickListener clickListener) {
             contactItemBinding.setVariable(BR.contact, obj);
+            contactItemBinding.setItemClickListener(clickListener);
             contactItemBinding.executePendingBindings();
         }
     }
