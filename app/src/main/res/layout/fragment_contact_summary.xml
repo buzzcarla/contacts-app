@@ -6,8 +6,8 @@
         <import type="android.text.TextUtils"/>
         <import type="android.view.View"/>
         <variable
-            name="contact"
-            type="com.codev.recruitment.carlaberdin.repository.data.Contact" />
+            name="viewModel"
+            type="com.codev.recruitment.carlaberdin.vm.ContactViewModel" />
     </data>
 
     <RelativeLayout
@@ -60,7 +60,7 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{contact.firstName}"
+                        android:text="@{viewModel.currentlyViewing.firstName}"
                         android:textSize="@dimen/xl_text" />
 
                     <TextView
@@ -69,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/small_margin"
-                        android:text="@{contact.lastName}"
+                        android:text="@{viewModel.currentlyViewing.lastName}"
                         android:textSize="@dimen/xl_text" />
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/general_margin"
-                        android:text="@{contact.phoneNumber}"
+                        android:text="@{viewModel.currentlyViewing.phoneNumber}"
                         android:textSize="@dimen/large_text" />
                 </LinearLayout>
 
@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_contact_main_info"
-            android:visibility="@{TextUtils.isEmpty(contact.email) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{TextUtils.isEmpty(viewModel.currentlyViewing.email) ? View.GONE : View.VISIBLE}"
             android:layout_marginTop="@dimen/medium_margin">
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/general_margin"
-                    android:text="@{contact.email}"/>
+                    android:text="@{viewModel.currentlyViewing.email}"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -139,12 +139,13 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_favorite"
                 style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/bottom_btn_bg"
-                android:drawableTop="@{contact.favorite ? @drawable/baseline_star_24 :  @drawable/baseline_star_border_24}"
+                android:drawableTop="@{viewModel.currentlyViewing.favorite ? @drawable/baseline_star_24 :  @drawable/baseline_star_border_24}"
                 android:text="@string/favorites"
                 android:textAllCaps="false"
                 android:textColor="@android:color/tab_indicator_text"

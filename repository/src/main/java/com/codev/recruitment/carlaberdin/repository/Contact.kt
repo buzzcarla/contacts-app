@@ -9,12 +9,12 @@ data class Contact(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    val firstName: String,
-    val lastName: String,
-    val phoneNumber: String,
-    val email: String?,
-    val image: String?,
-    val isFavorite: Boolean) {
+    var firstName: String,
+    var lastName: String,
+    var phoneNumber: String,
+    var email: String?,
+    var image: String?,
+    var isFavorite: Boolean) {
 
     constructor(firstName: String, lastName: String, phoneNumber: String) : this(0, firstName, lastName, phoneNumber, null, null, false) {
 

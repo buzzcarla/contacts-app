@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +39,33 @@ public class ContactSummaryFragment extends Fragment {
                 inflater, R.layout.fragment_contact_summary, container, false);
 
         View view = binding.getRoot();
-        //here data must be an instance of the class MarsDataProvider
 
         mContactVM = new ViewModelProvider(requireActivity()).get(ContactViewModel.class);
-
-        binding.setContact(mContactVM.getCurrentlyViewing());
+        binding.setViewModel(mContactVM);
+        binding.setLifecycleOwner(requireActivity());
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.btnDeleteContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // show alert dialog "Are you sure you want to delete this contact?"
+            }
+        });
+        binding.btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Contact contact = mContactVM.getCurrentlyViewing().getValue();
+
+                contact.setFavorite(!contact.isFavorite());
+                mContactVM.updateContact(contact);
+                mContactVM.setCurrentlyViewing(contact);
+            }
+        });
+        binding.executePendingBindings();
     }
 }
