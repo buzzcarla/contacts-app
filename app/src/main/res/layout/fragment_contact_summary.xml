@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.ContactSummaryFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="contact"
+            type="com.codev.recruitment.carlaberdin.repository.data.Contact" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".fragment.ContactSummaryFragment">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_marginTop="@dimen/general_margin"
+            android:background="@color/bottom_btn_bg"
+            android:drawableStart="@drawable/baseline_arrow_back_24"
+            android:drawableTint="@android:color/tab_indicator_text"
+            android:paddingStart="@dimen/medium_margin" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ll_contact_main_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_contact"
+                    android:layout_width="@dimen/summary_image_size"
+                    android:layout_height="@dimen/summary_image_size"
+                    android:background="@drawable/circle_bg_clickable"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/medium_margin"
+                    android:src="@drawable/baseline_photo_camera_24" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_padding"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_first_name"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{contact.firstName}"
+                        android:textSize="@dimen/xl_text" />
+
+                    <TextView
+                        android:id="@+id/text_last_name"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:text="@{contact.lastName}"
+                        android:textSize="@dimen/xl_text" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mobile" />
+
+
+                    <TextView
+                        android:id="@+id/text_phone"
+                        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:text="@{contact.phoneNumber}"
+                        android:textSize="@dimen/large_text" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_contact_main_info"
+            android:layout_marginTop="@dimen/medium_margin">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/medium_padding"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email" />
+
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/general_margin"
+                    android:text="sampleemail@email.com" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_toolbar_height"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/bottom_btn_bg"
+                android:drawableTop="@{contact.favorite ? @drawable/baseline_star_24 :  @drawable/baseline_star_border_24}"
+                android:text="@string/favorites"
+                android:textAllCaps="false"
+                android:textColor="@android:color/tab_indicator_text"
+                android:textSize="@dimen/medium_text" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/bottom_btn_bg"
+                android:drawableTop="@drawable/baseline_edit_24"
+                android:drawableTint="@android:color/tab_indicator_text"
+                android:text="@string/edit"
+                android:textAllCaps="false"
+                android:textColor="@android:color/tab_indicator_text"
+                android:textSize="@dimen/medium_text" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/bottom_btn_bg"
+                android:drawableTop="@drawable/baseline_delete_24"
+                android:drawableTint="@android:color/tab_indicator_text"
+                android:text="@string/delete"
+                android:textAllCaps="false"
+                android:textColor="@android:color/tab_indicator_text"
+                android:textSize="@dimen/medium_text" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

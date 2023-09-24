@@ -3,6 +3,8 @@
     <dimen name="small_margin">5dp</dimen>
     <dimen name="general_margin">10dp</dimen>
 
+    <dimen name="big_margin">125dp</dimen>
+
 
     <dimen name="medium_margin">20dp</dimen>
     <dimen name="contact_img_width">35dp</dimen>
@@ -13,5 +15,13 @@
 
 
     <dimen name="toolbar_height">65dp</dimen>
+    <dimen name="bottom_toolbar_height">55dp</dimen>
     <dimen name="toolbar_button_width">35dp</dimen>
+
+
+    <dimen name="summary_image_size">85dp</dimen>
+
+    <dimen name="medium_text">12sp</dimen>
+    <dimen name="large_text">18sp</dimen>
+    <dimen name="xl_text">28sp</dimen>
 </resources>

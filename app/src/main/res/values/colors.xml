@@ -12,4 +12,5 @@
     <color name="highlight">#5BA199</color>
 
     <color name="toolbar_button_clicked">#BBC6C8</color>
+    <color name="bottom_btn_clicked">#E7EAEF</color>
 </resources>
