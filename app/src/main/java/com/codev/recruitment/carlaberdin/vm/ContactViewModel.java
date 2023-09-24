@@ -16,6 +16,8 @@ public class ContactViewModel extends AndroidViewModel {
 
     private ContactsLib mContactsLib;
 
+    private Contact mCurrentlyViewing;
+
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
@@ -26,5 +28,13 @@ public class ContactViewModel extends AndroidViewModel {
 
     public LiveData<List<Contact>> getAllContacts() {
         return mContactsLib.getAllContacts();
+    }
+
+    public Contact getCurrentlyViewing() {
+        return mCurrentlyViewing;
+    }
+
+    public void setCurrentlyViewing(Contact currentlyViewing) {
+        this.mCurrentlyViewing = currentlyViewing;
     }
 }

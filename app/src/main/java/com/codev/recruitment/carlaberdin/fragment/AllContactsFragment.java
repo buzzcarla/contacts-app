@@ -72,6 +72,7 @@ public class AllContactsFragment extends Fragment {
                 ContactsViewAdapter adapter = new ContactsViewAdapter(contacts, new ContactsViewAdapter.CustomClickListener() {
                     @Override
                     public void contactClicked(Contact contact) {
+                        mContactVM.setCurrentlyViewing(contact);
                         navController.navigate(R.id.action_allContactsFragment_to_contactSummaryFragment);
                         // Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
                     }
