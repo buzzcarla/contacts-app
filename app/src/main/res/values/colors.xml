@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_bg">#ebebeb</color>
+    <color name="highlight">#5BA199</color>
 
-    <color name="toolbar_button_clicked">#898989</color>
+    <color name="toolbar_button_clicked">#BBC6C8</color>
 </resources>
