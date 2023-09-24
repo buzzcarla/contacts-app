@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable
             name="contact"
             type="com.codev.recruitment.carlaberdin.repository.data.Contact" />
@@ -43,11 +44,9 @@
                     android:id="@+id/img_contact"
                     android:layout_width="@dimen/summary_image_size"
                     android:layout_height="@dimen/summary_image_size"
-                    android:background="@drawable/circle_bg_clickable"
-                    android:clickable="true"
-                    android:focusable="true"
+                    android:background="@drawable/circle_bg"
                     android:padding="@dimen/medium_margin"
-                    android:src="@drawable/baseline_photo_camera_24" />
+                    android:src="@drawable/baseline_person_24" />
 
 
                 <LinearLayout
@@ -106,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_contact_main_info"
+            android:visibility="@{TextUtils.isEmpty(contact.email) ? View.GONE : View.VISIBLE}"
             android:layout_marginTop="@dimen/medium_margin">
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/general_margin"
-                    android:text="sampleemail@email.com" />
+                    android:text="@{contact.email}"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -164,6 +164,7 @@
                 android:textSize="@dimen/medium_text" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_delete_contact"
                 style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

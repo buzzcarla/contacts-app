@@ -6,4 +6,5 @@
     <string name="delete">Delete</string>
     <string name="mobile">Mobile</string>
     <string name="email">Email</string>
+    <string name="no_contact_saved">No contact saved.</string>
 </resources>
