@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_margin">5dp</dimen>
     <dimen name="general_margin">10dp</dimen>
+
+
+    <dimen name="medium_margin">20dp</dimen>
     <dimen name="contact_img_width">30dp</dimen>
     <dimen name="contact_favorite_width">20dp</dimen>
+
+
+    <dimen name="toolbar_height">65dp</dimen>
+    <dimen name="toolbar_button_width">35dp</dimen>
 </resources>
