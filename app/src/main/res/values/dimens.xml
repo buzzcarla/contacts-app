@@ -5,8 +5,11 @@
 
 
     <dimen name="medium_margin">20dp</dimen>
-    <dimen name="contact_img_width">30dp</dimen>
+    <dimen name="contact_img_width">35dp</dimen>
     <dimen name="contact_favorite_width">20dp</dimen>
+
+
+    <dimen name="medium_padding">15dp</dimen>
 
 
     <dimen name="toolbar_height">65dp</dimen>

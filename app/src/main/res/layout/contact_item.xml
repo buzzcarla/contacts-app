@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/rl_contact_info"
+    <data>
+        <variable
+            name="contact"
+            type="com.codev.recruitment.carlaberdin.repository.data.Contact" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/general_margin">
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/contact_item_bg">
 
-        <ImageView
-            android:id="@+id/img_contact"
-            android:layout_width="@dimen/contact_img_width"
-            android:layout_height="@dimen/contact_img_width"
-            android:src="@drawable/contact_no_image" />
+        <RelativeLayout
+            android:id="@+id/rl_contact_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_padding">
+
+            <ImageView
+                android:id="@+id/img_contact"
+                android:layout_width="@dimen/contact_img_width"
+                android:layout_height="@dimen/contact_img_width"
+                android:background="@drawable/circle_bg"
+                android:padding="@dimen/small_margin"
+                android:src="@drawable/baseline_person_24" />
+
+
+            <TextView
+                android:id="@+id/text_first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/medium_padding"
+                android:layout_toEndOf="@id/img_contact"
+                android:text="@{contact.firstName}" />
+
+            <TextView
+                android:id="@+id/text_last_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/text_first_name"
+                android:layout_marginStart="@dimen/small_margin"
+                android:text="@{contact.lastName}" />
+
+        </RelativeLayout>
 
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/general_margin"
-            android:layout_toEndOf="@id/img_contact"
-            tools:text="John Doe" />
-    </RelativeLayout>
+            android:layout_marginEnd="@dimen/general_margin"
+            android:background="@color/toolbar_button_clicked" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/rl_contact_info"
-        android:background="@color/black" />
-
-</RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
