@@ -9,5 +9,18 @@
         android:id="@+id/allContactsFragment"
         android:name="com.codev.recruitment.carlaberdin.fragment.AllContactsFragment"
         android:label="fragment_all_contacts"
-        tools:layout="@layout/fragment_all_contacts" />
+        tools:layout="@layout/fragment_all_contacts" >
+        <action
+            android:id="@+id/action_allContactsFragment_to_contactSummaryFragment"
+            app:destination="@id/contactSummaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactSummaryFragment"
+        android:name="com.codev.recruitment.carlaberdin.fragment.ContactSummaryFragment"
+        android:label="fragment_contact_summary"
+        tools:layout="@layout/fragment_contact_summary" />
 </navigation>
