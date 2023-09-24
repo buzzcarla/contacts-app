@@ -7,4 +7,7 @@
     <string name="mobile">Mobile</string>
     <string name="email">Email</string>
     <string name="no_contact_saved">No contact saved.</string>
+
+    <string name="delete_alert">Are you sure you want to delete this contact?</string>
+    <style name="yes">Yes</style>
 </resources>
