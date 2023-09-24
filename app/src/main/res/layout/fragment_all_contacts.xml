@@ -63,10 +63,11 @@
             tools:listitem="@layout/contact_item" />
 
         <LinearLayout
+            android:id="@+id/ll_no_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="@{myAdapter.itemCount> 0 ? View.GONE : View.VISIBLE}"
+            android:visibility="gone"
             android:background="@color/white"
             android:orientation="vertical">
 

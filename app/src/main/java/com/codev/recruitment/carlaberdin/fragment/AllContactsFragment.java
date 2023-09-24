@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,16 +70,24 @@ public class AllContactsFragment extends Fragment {
         mContactVM.getAllContacts().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
-                ContactsViewAdapter adapter = new ContactsViewAdapter(contacts, new ContactsViewAdapter.CustomClickListener() {
-                    @Override
-                    public void contactClicked(Contact contact) {
-                        mContactVM.setCurrentlyViewing(contact);
-                        navController.navigate(R.id.action_allContactsFragment_to_contactSummaryFragment);
-                        // Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
-                    }
-                });
-                binding.setMyAdapter(adapter);
+                if (contacts != null && contacts.size() > 0) {
+                    ContactsViewAdapter adapter = new ContactsViewAdapter(contacts, new ContactsViewAdapter.CustomClickListener() {
+                        @Override
+                        public void contactClicked(Contact contact) {
+                            mContactVM.setCurrentlyViewing(contact);
+                            navController.navigate(R.id.action_allContactsFragment_to_contactSummaryFragment);
+                            // Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    binding.setMyAdapter(adapter);
+                } else {
+                    binding.llNoContacts.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+        // mContactVM.addContact(new Contact("John", "Wayne", "+639874851203", "john.wayne@email.com", ""));
+
+
     }
 }
