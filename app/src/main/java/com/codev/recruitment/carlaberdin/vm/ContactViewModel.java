@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,31 +17,38 @@ import com.codev.recruitment.carlaberdin.utils.Util;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Contact View Model for business logic and observables
+ */
 public class ContactViewModel extends AndroidViewModel {
     private static final String TAG = "ContactViewModel";
-    private ContactsLib mContactsLib;
+    private final ContactsLib mContactsLib;
 
     private MutableLiveData<Contact> mCurrentlyViewing;
+    private SingleLiveEvent<Bitmap> mImageCaptured;
 
-    private SingleLiveEvent<Bitmap> imageCaptured;
-    private String imageInBase64;
-
-    private ExecutorService mExecutorService;
+    private String mImageInBase64; // String base64 of the captured Bitmap, to save in database
+    private final ExecutorService mExecutorService;
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
 
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        mContactsLib = new ContactsLib(application, new EncryptionSettings(true, "ABCDE-123456-ABCDEF-123456-ABCDE", "ssa234fdssa234fd"));
-
         mCurrentlyViewing = new MutableLiveData<>();
+        mImageCaptured = new SingleLiveEvent<>();
 
-        imageCaptured = new SingleLiveEvent<>();
+        // Instance of Contacts Library
+        mContactsLib = new ContactsLib(
+                application,
+                new EncryptionSettings(                           // For encryption, Keys and Init Vectors are hardcoded for demo purposes
+                        true,                                     // To show that the library is initialized with the encryption settings
+                        "ABCDE-123456-ABCDEF-123456-ABCDE",       // if encryption ON - contact data in each column is encrypted on insert/update and decrypted on fetchAll
+                        "ssa234fdssa234fd"));                     // In real-world apps, keys and IVs are hidden depending on developer's implementation
+
     }
 
     public void addContact(Contact contact) {
@@ -64,20 +70,26 @@ public class ContactViewModel extends AndroidViewModel {
         return mCurrentlyViewing;
     }
 
+    /**
+     * Function used to decrypt the data from the database (if encryption ON)
+     * Not implemented in the Contacts Lib because it is a LiveData, decryption is easier in the app side
+     */
     public List<Contact> intercept(List<Contact> allContacts) {
         return mContactsLib.intercept(allContacts);
     }
 
+    // Reset variables used in keeping track of/displaying the selected Contact
     public void resetCurrentlyViewing() {
         mCurrentlyViewing = new MutableLiveData<>();
-        imageCaptured = new SingleLiveEvent<>();
-        imageInBase64 = null;
+        mImageCaptured = new SingleLiveEvent<>();
+        mImageInBase64 = null;
     }
 
     public void setCurrentlyViewing(Contact currentlyViewing) {
         this.mCurrentlyViewing.postValue(currentlyViewing);
     }
 
+    // Creates a "clone" Contact object
     public Contact clone(Contact contact) {
         return new Contact(contact.getId(),
                 contact.getFirstName(),
@@ -89,20 +101,20 @@ public class ContactViewModel extends AndroidViewModel {
     }
 
     public SingleLiveEvent<Bitmap> getCapturedImage() {
-        return imageCaptured;
+        return mImageCaptured;
     }
 
     public String getImageInBase64() {
-        return imageInBase64;
+        return mImageInBase64;
     }
 
     public void convertImageToBase64(Bitmap bitmap) throws IOException {
-        byte[] imgArr = Util.getBytes(bitmap, 50);
-        imageInBase64 = Util.encodeImageToBase64(imgArr);
+        byte[] imgArr = Util.getBytes(bitmap, 50); // set low quality for fast transaction
+        mImageInBase64 = Util.encodeImageToBase64(imgArr);
     }
 
     public void setImage(Bitmap rounded) {
-        imageCaptured.postValue(rounded);
+        mImageCaptured.postValue(rounded);
     }
 
     public void setCapturedImageFromCamera(Bitmap fullSize) {
@@ -113,7 +125,7 @@ public class ContactViewModel extends AndroidViewModel {
             } catch (IOException e) {
                 Log.d(TAG, "conversion to Base64 failed");
             }
-            imageCaptured.postValue(rounded);
+            mImageCaptured.postValue(rounded);
         });
     }
 

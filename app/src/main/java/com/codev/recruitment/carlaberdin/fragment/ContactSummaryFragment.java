@@ -1,7 +1,5 @@
 package com.codev.recruitment.carlaberdin.fragment;
 
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,12 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +21,12 @@ import com.codev.recruitment.carlaberdin.repository.data.Contact;
 import com.codev.recruitment.carlaberdin.utils.Util;
 import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
+/**
+ * Fragment to display details of the selected Contact
+ */
 public class ContactSummaryFragment extends Fragment {
 
-    private FragmentContactSummaryBinding binding;
+    private FragmentContactSummaryBinding mBinding;
 
     private ContactViewModel mContactVM;
 
@@ -36,22 +35,20 @@ public class ContactSummaryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(
+        mBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_contact_summary, container, false);
 
-        View view = binding.getRoot();
+        View view = mBinding.getRoot();
 
         mContactVM = new ViewModelProvider(requireActivity()).get(ContactViewModel.class);
-        binding.setViewModel(mContactVM);
-        binding.setLifecycleOwner(requireActivity());
+        mBinding.setViewModel(mContactVM);
+        mBinding.setLifecycleOwner(requireActivity());
 
         return view;
     }
@@ -62,49 +59,34 @@ public class ContactSummaryFragment extends Fragment {
 
         mNavController = Navigation.findNavController(view);
 
-        if (mContactVM.getCurrentlyViewing().getValue().getImage() != null) { // show image if not null
+        // show image if not null
+        // image not included in data binding. images are saved as Base64 String in the database and needs to be decoded to Bitmap before displaying
+        if (mContactVM.getCurrentlyViewing().getValue() != null && mContactVM.getCurrentlyViewing().getValue().getImage() != null) {
             mContactVM.setImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
         }
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mNavController.popBackStack();
-            }
-        });
-        binding.btnDeleteContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // show alert dialog
-                showDeleteAlert();
-            }
-        });
-        binding.btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Contact contact = mContactVM.getCurrentlyViewing().getValue();
 
-                contact.setFavorite(!contact.isFavorite());
-                mContactVM.setCurrentlyViewing(mContactVM.clone(contact));
-                mContactVM.updateContact(contact);
-            }
-        });
-        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mNavController.navigate(R.id.action_contactSummaryFragment_to_addEditContactFragment);
-            }
+        mBinding.btnBack.setOnClickListener(view1 -> mNavController.popBackStack());
+
+        mBinding.btnDeleteContact.setOnClickListener(view12 -> {
+            // show alert dialog
+            showDeleteAlert();
         });
 
-        mContactVM.getCapturedImage().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                binding.imgContact.setImageBitmap(bitmap);
-            }
+        mBinding.btnFavorite.setOnClickListener(view13 -> {
+            Contact contact = mContactVM.getCurrentlyViewing().getValue();
+
+            contact.setFavorite(!contact.isFavorite());
+            mContactVM.setCurrentlyViewing(mContactVM.clone(contact));
+            mContactVM.updateContact(contact);
         });
+
+        mBinding.btnEdit.setOnClickListener(view14 -> mNavController.navigate(R.id.action_contactSummaryFragment_to_addEditContactFragment));
+
+        mContactVM.getCapturedImage().observe(getViewLifecycleOwner(), bitmap -> mBinding.imgContact.setImageBitmap(bitmap));
     }
 
     private void showDeleteAlert() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(requireContext());
         builder1.setMessage(getString(R.string.delete_alert));
         builder1.setCancelable(true);
 

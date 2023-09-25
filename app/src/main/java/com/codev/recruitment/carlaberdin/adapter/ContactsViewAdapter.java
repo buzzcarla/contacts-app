@@ -1,8 +1,6 @@
 package com.codev.recruitment.carlaberdin.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -16,18 +14,16 @@ import com.codev.recruitment.carlaberdin.repository.data.Contact;
 import com.codev.recruitment.carlaberdin.utils.Util;
 
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Custom Recycler View Adapter to display Contacts in the database
+ */
 public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapter.ViewHolder> {
+    private List<Contact> mAllContacts;
+    private final CustomClickListener mContactItemClickListener;
 
-    List<Contact> allContacts;
-
-    CustomClickListener contactItemClickListener;
-
-    public ContactsViewAdapter(List<Contact> allContacts, CustomClickListener customClickListener) {
-        this.allContacts = allContacts;
-
-        contactItemClickListener = customClickListener;
+    public ContactsViewAdapter(CustomClickListener customClickListener) {
+        mContactItemClickListener = customClickListener;
     }
 
     @NonNull
@@ -38,26 +34,30 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
                 R.layout.contact_item, parent, false);
 
         return new ViewHolder(binding);
-//        return new ViewHolder(ContactItemBinding.inflate(LayoutInflater.from(parent.getContext()),
-//                parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ContactsViewAdapter.ViewHolder holder, int position) {
-        Contact contact = allContacts.get(position);
-        holder.bind(contact, contactItemClickListener);
+        Contact contact = mAllContacts.get(position);
+        holder.bind(contact, mContactItemClickListener);
         if (contact.getImage() != null) {
+            // image not included in data binding. images are saved as Base64 String in the database and needs to be decoded to Bitmap before displaying
             holder.contactItemBinding.imgContact.setImageBitmap(Util.decodeBase64ToBitmap(contact.getImage()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return allContacts != null ? allContacts.size() : 0;
+        return mAllContacts != null ? mAllContacts.size() : 0;
+    }
+
+    public void setData(List<Contact> contacts) {
+        mAllContacts = contacts;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ContactItemBinding contactItemBinding;
+        private final ContactItemBinding contactItemBinding;
 
         public ViewHolder(ContactItemBinding userItemBinding) {
             super(userItemBinding.getRoot());
@@ -71,6 +71,7 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
         }
     }
 
+    // listener for item tap in the recycler view
     public interface CustomClickListener {
         void contactClicked(Contact contact);
     }
