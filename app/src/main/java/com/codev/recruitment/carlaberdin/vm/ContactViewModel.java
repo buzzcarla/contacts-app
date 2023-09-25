@@ -86,7 +86,11 @@ public class ContactViewModel extends AndroidViewModel {
         imageInBase64 = Util.encodeImageToBase64(imgArr);
     }
 
-    public void setCapturedImage(Bitmap fullSize) {
+    public void setImage(Bitmap rounded) {
+        imageCaptured.postValue(rounded);
+    }
+
+    public void setCapturedImageFromCamera(Bitmap fullSize) {
         mExecutorService.execute(() -> {
             Bitmap rounded = Util.getRoundedCroppedBitmap(fullSize);
             try {
@@ -98,7 +102,4 @@ public class ContactViewModel extends AndroidViewModel {
         });
     }
 
-    public void setCapturedImage(String base64) {
-        // imageCaptured.postValue();
-    }
 }
