@@ -153,6 +153,7 @@
                 android:textSize="@dimen/medium_text" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_edit"
                 style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

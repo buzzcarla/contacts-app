@@ -97,4 +97,11 @@ public class AllContactsFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mContactVM.resetCurrentlyViewing();
+    }
 }
