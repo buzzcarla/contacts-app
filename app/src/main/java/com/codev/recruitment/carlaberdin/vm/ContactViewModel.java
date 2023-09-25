@@ -43,7 +43,7 @@ public class ContactViewModel extends AndroidViewModel {
         mCurrentlyViewing = new MutableLiveData<>();
         mImageCaptured = new SingleLiveEvent<>();
 
-        // Instance of Contacts Library
+        // Init Contacts Library
         initContactsLib(application.getApplicationContext());
     }
 

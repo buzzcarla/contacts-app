@@ -15,22 +15,20 @@ import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private ContactViewModel contactVM;
+    private ContactViewModel mContactVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        contactVM = new ViewModelProvider(this).get(ContactViewModel.class);
+        mContactVM = new ViewModelProvider(this).get(ContactViewModel.class);
 
         SharedPreferences sharedPref = getSharedPreferences(Util.KEY_SHARED_PREF, Context.MODE_PRIVATE);
+        // check if first app launch, if so, show encryption settings selection dialog
         if (sharedPref.getBoolean(Util.KEY_FIRST_APP_LAUNCH, true)) {
             showFirstLaunchSetup();
         }
-
-
     }
 
     private void showFirstLaunchSetup() {
@@ -67,6 +65,6 @@ public class MainActivity extends AppCompatActivity {
         // display message
         Toast.makeText(getApplicationContext(), encryptionON ? getString(R.string.encryption_on) : getString(R.string.encryption_off), Toast.LENGTH_LONG).show();
 
-        contactVM.initContactsLib(getApplicationContext());
+        mContactVM.initContactsLib(getApplicationContext());
     }
 }
