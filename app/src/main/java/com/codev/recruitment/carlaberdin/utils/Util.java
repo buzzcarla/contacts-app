@@ -17,6 +17,10 @@ import java.io.IOException;
  */
 public class Util {
 
+    public static final String KEY_SHARED_PREF = "myPref";
+    public static final String KEY_FIRST_APP_LAUNCH = "FIRST_APP_LAUNCH";
+    public static final String KEY_ENCRYPTION_ON= "ENCRYPTION_ON";
+
     /**
      * Function that crops an image into a circle
      */

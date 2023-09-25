@@ -1,6 +1,8 @@
 package com.codev.recruitment.carlaberdin.vm;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.Executors;
  */
 public class ContactViewModel extends AndroidViewModel {
     private static final String TAG = "ContactViewModel";
-    private final ContactsLib mContactsLib;
+    private ContactsLib mContactsLib;
 
     private MutableLiveData<Contact> mCurrentlyViewing;
     private SingleLiveEvent<Bitmap> mImageCaptured;
@@ -42,13 +44,24 @@ public class ContactViewModel extends AndroidViewModel {
         mImageCaptured = new SingleLiveEvent<>();
 
         // Instance of Contacts Library
-        mContactsLib = new ContactsLib(
-                application,
-                new EncryptionSettings(                           // For encryption, Keys and Init Vectors are hardcoded for demo purposes
-                        true,                                     // To show that the library is initialized with the encryption settings
-                        "ABCDE-123456-ABCDEF-123456-ABCDE",       // if encryption ON - contact data in each column is encrypted on insert/update and decrypted on fetchAll
-                        "ssa234fdssa234fd"));                     // In real-world apps, keys and IVs are hidden depending on developer's implementation
+        initContactsLib(application.getApplicationContext());
+    }
 
+    public void initContactsLib(Context context)
+    {
+        SharedPreferences sharedPref = context.getSharedPreferences(Util.KEY_SHARED_PREF, Context.MODE_PRIVATE);
+        mContactsLib = new ContactsLib(
+                context,
+                sharedPref.getBoolean(Util.KEY_ENCRYPTION_ON, false) ?
+                        new EncryptionSettings(                           // For encryption, Keys and Init Vectors are hardcoded for demo purposes
+                                true,                                     // To show that the library is initialized with the encryption settings
+                                "ABCDE-123456-ABCDEF-123456-ABCDE",       // if encryption ON - contact data in each column is encrypted on insert/update and decrypted on fetchAll
+                                "ssa234fdssa234fd") :                     // In real-world apps, keys and IVs are hidden depending on developer's implementation
+                        new EncryptionSettings(       // OFF
+                                false,
+                                "",
+                                "")
+        );
     }
 
     public void addContact(Contact contact) {

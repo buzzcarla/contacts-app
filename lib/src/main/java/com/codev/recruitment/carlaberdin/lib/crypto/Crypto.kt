@@ -8,21 +8,23 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-class Crypto(val key: String, val IV: String) {
+class Crypto(val encryptionSettings: EncryptionSettings) {
 
-    private var cipherEncrypt: Cipher
-    private var cipherDecrypt: Cipher
+    private lateinit var cipherEncrypt: Cipher
+    private lateinit var cipherDecrypt: Cipher
 
 
     init {
-        cipherEncrypt = initCipher(Cipher.ENCRYPT_MODE)
-        cipherDecrypt = initCipher(Cipher.DECRYPT_MODE)
+        if (encryptionSettings.isEncryptionOn) {
+            cipherEncrypt = initCipher(Cipher.ENCRYPT_MODE)
+            cipherDecrypt = initCipher(Cipher.DECRYPT_MODE)
+        }
     }
 
     fun initCipher(opMode: Int): Cipher {
         val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
-        val keySpec = SecretKeySpec(key.toByteArray(Charsets.UTF_8), "AES")
-        val ivSpec = IvParameterSpec(IV.toByteArray(Charsets.UTF_8))
+        val keySpec = SecretKeySpec(encryptionSettings.key.toByteArray(Charsets.UTF_8), "AES")
+        val ivSpec = IvParameterSpec(encryptionSettings.IV.toByteArray(Charsets.UTF_8))
         cipher.init(opMode, keySpec, ivSpec)
         return cipher
     }

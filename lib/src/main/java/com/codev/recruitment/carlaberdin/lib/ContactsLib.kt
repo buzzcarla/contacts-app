@@ -31,7 +31,7 @@ class ContactsLib(context: Context, encryptionSettings : EncryptionSettings) {
 
         DaggerLibComponent.builder()
             .roomModule(RoomModule(context))
-            .cryptoModule(CryptoModule(encryptionSettings.key, encryptionSettings.IV))
+            .cryptoModule(CryptoModule(encryptionSettings))
             .build()
             .inject(this)
 
