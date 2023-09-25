@@ -8,6 +8,7 @@
    - Setup classes needed by Room Database
 2. Create a new module named lib (Kotlin)
    - Add dependency injection using Dagger2, create module and component
+   - use Coroutine for Room database transactions
    - Create the lib class, later to be accessed by app module (lib user will not need any DI knowledge to use the lib)
 
 ### frontend
