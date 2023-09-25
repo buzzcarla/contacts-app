@@ -36,20 +36,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="@dimen/toolbar_button_width"
                 android:layout_height="@dimen/toolbar_button_width"
-                android:layout_marginEnd="@dimen/small_margin"
-                android:layout_toLeftOf="@id/btn_search"
-                android:background="@drawable/toolbar_button_bg"
-                android:drawableStart="@drawable/baseline_add_24" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="@dimen/toolbar_button_width"
-                android:layout_height="@dimen/toolbar_button_width"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/toolbar_button_bg"
-                android:drawableStart="@drawable/baseline_search_24" />
-
+                android:drawableEnd="@drawable/baseline_add_24" />
 
         </RelativeLayout>
 
