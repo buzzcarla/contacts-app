@@ -71,7 +71,7 @@ public class AllContactsFragment extends Fragment {
             @Override
             public void onChanged(List<Contact> contacts) {
                 if (contacts != null && contacts.size() > 0) {
-                    ContactsViewAdapter adapter = new ContactsViewAdapter(contacts, new ContactsViewAdapter.CustomClickListener() {
+                    ContactsViewAdapter adapter = new ContactsViewAdapter(mContactVM.intercept(contacts), new ContactsViewAdapter.CustomClickListener() {
                         @Override
                         public void contactClicked(Contact contact) {
                             mContactVM.setCurrentlyViewing(contact);

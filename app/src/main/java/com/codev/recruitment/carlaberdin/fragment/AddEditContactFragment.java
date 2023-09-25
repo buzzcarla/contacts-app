@@ -132,8 +132,8 @@ public class AddEditContactFragment extends Fragment {
                                 email,
                                 mContactVM.getImageInBase64(),
                                 currentlyViewing.isFavorite());
+                        mContactVM.setCurrentlyViewing(mContactVM.clone(contact));
                         mContactVM.updateContact(contact);
-                        mContactVM.setCurrentlyViewing(contact);
                     } else {
                         // New Contact
                         contact = generateContactObject(

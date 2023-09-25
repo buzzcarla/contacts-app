@@ -84,8 +84,8 @@ public class ContactSummaryFragment extends Fragment {
                 Contact contact = mContactVM.getCurrentlyViewing().getValue();
 
                 contact.setFavorite(!contact.isFavorite());
+                mContactVM.setCurrentlyViewing(mContactVM.clone(contact));
                 mContactVM.updateContact(contact);
-                mContactVM.setCurrentlyViewing(contact);
             }
         });
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class ContactSummaryFragment extends Fragment {
         mContactVM.getCapturedImage().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
-                binding.imgContact.setImageBitmap(Util.getRoundedCroppedBitmap(bitmap));
+                binding.imgContact.setImageBitmap(bitmap);
             }
         });
     }

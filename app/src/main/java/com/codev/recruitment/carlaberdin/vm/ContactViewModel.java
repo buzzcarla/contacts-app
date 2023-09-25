@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.codev.recruitment.carlaberdin.lib.ContactsLib;
+import com.codev.recruitment.carlaberdin.lib.crypto.EncryptionSettings;
 import com.codev.recruitment.carlaberdin.repository.data.Contact;
 import com.codev.recruitment.carlaberdin.utils.SingleLiveEvent;
 import com.codev.recruitment.carlaberdin.utils.Util;
@@ -37,7 +38,7 @@ public class ContactViewModel extends AndroidViewModel {
 
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        mContactsLib = new ContactsLib(application);
+        mContactsLib = new ContactsLib(application, new EncryptionSettings(true, "ABCDE-123456-ABCDEF-123456-ABCDE", "ssa234fdssa234fd"));
 
         mCurrentlyViewing = new MutableLiveData<>();
 
@@ -63,6 +64,10 @@ public class ContactViewModel extends AndroidViewModel {
         return mCurrentlyViewing;
     }
 
+    public List<Contact> intercept(List<Contact> allContacts) {
+        return mContactsLib.intercept(allContacts);
+    }
+
     public void resetCurrentlyViewing() {
         mCurrentlyViewing = new MutableLiveData<>();
         imageCaptured = new SingleLiveEvent<>();
@@ -71,6 +76,16 @@ public class ContactViewModel extends AndroidViewModel {
 
     public void setCurrentlyViewing(Contact currentlyViewing) {
         this.mCurrentlyViewing.postValue(currentlyViewing);
+    }
+
+    public Contact clone(Contact contact) {
+        return new Contact(contact.getId(),
+                contact.getFirstName(),
+                contact.getLastName(),
+                contact.getPhoneNumber(),
+                contact.getEmail(),
+                contact.getImage(),
+                contact.isFavorite());
     }
 
     public SingleLiveEvent<Bitmap> getCapturedImage() {
