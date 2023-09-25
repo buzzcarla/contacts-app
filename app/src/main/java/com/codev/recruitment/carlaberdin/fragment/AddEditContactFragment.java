@@ -229,12 +229,9 @@ public class AddEditContactFragment extends Fragment {
             return true;
         if (!contact.getPhoneNumber().equals(binding.edittextPhone.getText().toString()))
             return true;
-        if (!Objects.equals(contact.getEmail(), binding.edittextEmail.getText().toString()))
+        if (contact.getEmail() != null && !contact.getEmail().equals(binding.edittextPhone.getText().toString()))
             return true;
-        if (mContactVM.getImageInBase64() != null)
-            return true;
-
-        return false;
+        return mContactVM.getImageInBase64() != null;
 
     }
 

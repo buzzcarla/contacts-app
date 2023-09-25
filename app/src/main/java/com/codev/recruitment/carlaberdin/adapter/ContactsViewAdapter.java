@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codev.recruitment.carlaberdin.R;
 import com.codev.recruitment.carlaberdin.databinding.ContactItemBinding;
 import com.codev.recruitment.carlaberdin.repository.data.Contact;
+import com.codev.recruitment.carlaberdin.utils.Util;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +46,9 @@ public class ContactsViewAdapter extends RecyclerView.Adapter<ContactsViewAdapte
     public void onBindViewHolder(@NonNull ContactsViewAdapter.ViewHolder holder, int position) {
         Contact contact = allContacts.get(position);
         holder.bind(contact, contactItemClickListener);
+        if (contact.getImage() != null) {
+            holder.contactItemBinding.imgContact.setImageBitmap(Util.decodeBase64ToBitmap(contact.getImage()));
+        }
     }
 
     @Override
