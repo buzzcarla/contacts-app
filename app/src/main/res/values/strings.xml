@@ -17,5 +17,12 @@
     <string name="first_name">First Name</string>
     <string name="phone">Phone</string>
 
-    <style name="yes">Yes</style>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
+    <string name="first_launch_setup">First Launch Setup</string>
+    <string name="first_launch_setup_msg">Would you like to use data encryption?</string>
+    <string name="encryption_on">Encryption: ON</string>
+    <string name="encryption_off">Encryption: OFF</string>
 </resources>

@@ -7,20 +7,18 @@ import javax.inject.Singleton
 
 
 @Module
-class CryptoModule(key: String, IV: String) {
+class CryptoModule(encryptionSettings: EncryptionSettings) {
 
-    private var key : String
-    private var IV : String
+    private var encryptionSettings : EncryptionSettings
 
     init {
-        this.key = key
-        this.IV = IV
+        this.encryptionSettings = encryptionSettings
     }
 
 
     @Singleton
     @Provides
     fun providesCryptography(): Crypto {
-        return Crypto (key, IV)
+        return Crypto (encryptionSettings)
     }
 }
