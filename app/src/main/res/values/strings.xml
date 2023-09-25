@@ -6,9 +6,12 @@
     <string name="delete">Delete</string>
     <string name="mobile">Mobile</string>
     <string name="email">Email</string>
+    <string name="discard">Discard</string>
     <string name="no_contact_saved">No contact saved.</string>
 
     <string name="delete_alert">Are you sure you want to delete this contact?</string>
+    <string name="discard_alert">Save your changes or discard them?</string>
+    <string name="save_alert">Please input valid data.</string>
     <string name="save">Save</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
