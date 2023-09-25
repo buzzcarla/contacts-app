@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="contact"
@@ -55,6 +56,14 @@
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_toEndOf="@id/text_first_name"
                 android:text="@{contact.lastName}" />
+
+            <ImageView
+                android:layout_width="@dimen/contact_img_width"
+                android:layout_height="@dimen/contact_img_width"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/general_margin"
+                android:visibility="@{contact.favorite ? View.VISIBLE : View.GONE}"
+                android:src="@drawable/baseline_star_24" />
 
         </RelativeLayout>
 
