@@ -25,6 +25,9 @@
     <dimen name="no_contacts_image_size">200dp</dimen>
 
     <dimen name="medium_text">12sp</dimen>
+    <dimen name="medium2_text">16sp</dimen>
     <dimen name="large_text">18sp</dimen>
     <dimen name="xl_text">28sp</dimen>
+
+    <dimen name="custom_edittext_height">55dp</dimen>
 </resources>
