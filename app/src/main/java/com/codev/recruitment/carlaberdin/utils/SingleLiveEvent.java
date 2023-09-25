@@ -2,9 +2,7 @@ package com.codev.recruitment.carlaberdin.utils;
 
 import android.util.Log;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -34,12 +32,9 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         }
 
         // Observe the internal MutableLiveData
-        super.observe(owner, new Observer<T>() {
-            @Override
-            public void onChanged(@Nullable T t) {
-                if (mPending.compareAndSet(true, false)) {
-                    observer.onChanged(t);
-                }
+        super.observe(owner, t -> {
+            if (mPending.compareAndSet(true, false)) {
+                observer.onChanged(t);
             }
         });
     }
@@ -54,14 +49,6 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
     public void postValue(final T value) {
         mPending.set(true);
         super.postValue(value);
-    }
-
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
-    @MainThread
-    public void call() {
-        setValue(null);
     }
 
 }

@@ -12,6 +12,9 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * Util methods
+ */
 public class Util {
 
     /**
@@ -38,6 +41,9 @@ public class Util {
         return output;
     }
 
+    /**
+     * Get byte stream of a Bitmap
+     */
     public static byte[] getBytes(final Bitmap bitmap, int quality) throws IOException {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -48,10 +54,16 @@ public class Util {
         return bytes;
     }
 
+    /**
+     * Encode byte stream to Base64
+     */
     public static String encodeImageToBase64(byte[] byteArray) {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
+    /**
+     * Decode Base64 image to Bitmap
+     */
     public static Bitmap decodeBase64ToBitmap(String encodedImage) {
         byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
