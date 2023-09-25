@@ -81,6 +81,12 @@ public class ContactSummaryFragment extends Fragment {
                 mContactVM.setCurrentlyViewing(contact);
             }
         });
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNavController.navigate(R.id.action_contactSummaryFragment_to_addEditContactFragment);
+            }
+        });
     }
 
     private void showDeleteAlert() {

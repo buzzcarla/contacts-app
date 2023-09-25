@@ -26,5 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         ContactViewModel contactVM = new ViewModelProvider(this).get(ContactViewModel.class);
 
+        // contactVM.addContact(new Contact("John", "Wayne", "98574120012", "john.wayna@email.com", ""));
+
     }
 }

@@ -49,6 +49,10 @@ public class ContactViewModel extends AndroidViewModel {
         return mCurrentlyViewing;
     }
 
+    public void resetCurrentlyViewing() {
+        mCurrentlyViewing = new MutableLiveData<>();
+    }
+
     public void setCurrentlyViewing(Contact currentlyViewing) {
         this.mCurrentlyViewing.postValue(currentlyViewing);
     }
