@@ -1,6 +1,5 @@
 package com.codev.recruitment.carlaberdin.repository.data
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -16,18 +15,8 @@ data class Contact(
     var image: String?,
     var isFavorite: Boolean) {
 
-    constructor(firstName: String, lastName: String, phoneNumber: String) : this(0, firstName, lastName, phoneNumber, null, null, false) {
+    constructor(firstName: String, lastName: String, phoneNumber: String) : this(0, firstName, lastName, phoneNumber, null, null, false)
+    constructor(firstName: String, lastName: String, phoneNumber: String, email: String, image: String) : this(0, firstName, lastName, phoneNumber, email, image, false)
+    constructor(firstName: String, lastName: String, phoneNumber: String, email: String, image: String, isFavorite: Boolean) : this(0, firstName, lastName, phoneNumber, email, image, isFavorite)
 
-    }
-
-    constructor(firstName: String, lastName: String, phoneNumber: String, email: String, image: String) : this(0, firstName, lastName, phoneNumber, email, image, false) {
-
-    }
-    constructor(firstName: String, lastName: String, phoneNumber: String, email: String, image: String, isFavorite: Boolean) : this(0, firstName, lastName, phoneNumber, email, image, isFavorite) {
-
-    }
-
-    override fun toString(): String {
-        return super.toString()
-    }
 }
