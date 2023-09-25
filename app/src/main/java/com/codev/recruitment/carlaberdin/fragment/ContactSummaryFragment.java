@@ -1,6 +1,7 @@
 package com.codev.recruitment.carlaberdin.fragment;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import com.codev.recruitment.carlaberdin.R;
 import com.codev.recruitment.carlaberdin.databinding.FragmentContactSummaryBinding;
 import com.codev.recruitment.carlaberdin.repository.data.Contact;
+import com.codev.recruitment.carlaberdin.utils.Util;
 import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
 public class ContactSummaryFragment extends Fragment {
@@ -58,6 +61,10 @@ public class ContactSummaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mNavController = Navigation.findNavController(view);
+
+        if (mContactVM.getCurrentlyViewing().getValue().getImage() != null) { // show image if not null
+            mContactVM.setCapturedImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
+        }
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +94,13 @@ public class ContactSummaryFragment extends Fragment {
                 mNavController.navigate(R.id.action_contactSummaryFragment_to_addEditContactFragment);
             }
         });
+
+        mContactVM.getCapturedImage().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                binding.imgContact.setImageBitmap(Util.getRoundedCroppedBitmap(bitmap));
+            }
+        });
     }
 
     private void showDeleteAlert() {
@@ -109,5 +123,10 @@ public class ContactSummaryFragment extends Fragment {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }
