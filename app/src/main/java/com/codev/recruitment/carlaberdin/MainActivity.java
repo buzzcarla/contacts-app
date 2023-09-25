@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.codev.recruitment.carlaberdin.lib.ContactsLib;
-import com.codev.recruitment.carlaberdin.lib.DaggerRoomComponent;
 import com.codev.recruitment.carlaberdin.repository.data.Contact;
 import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
