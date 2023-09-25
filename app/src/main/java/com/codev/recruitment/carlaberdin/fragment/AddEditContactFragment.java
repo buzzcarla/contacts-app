@@ -86,7 +86,7 @@ public class AddEditContactFragment extends Fragment {
 
         if (mContactVM.getCurrentlyViewing().getValue() != null && mContactVM.getCurrentlyViewing().getValue().getImage() != null) {
             // Edit contact, show image if not null
-            mContactVM.setCapturedImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
+            mContactVM.setImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
         }
         binding.imgContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +172,7 @@ public class AddEditContactFragment extends Fragment {
                         Intent data = result.getData();
                         Bitmap image = (Bitmap) data.getExtras().get("data");
 
-                        mContactVM.setCapturedImage(image);
+                        mContactVM.setCapturedImageFromCamera(image);
 
                     }
                 }

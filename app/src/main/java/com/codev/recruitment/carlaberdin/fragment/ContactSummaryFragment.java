@@ -63,7 +63,7 @@ public class ContactSummaryFragment extends Fragment {
         mNavController = Navigation.findNavController(view);
 
         if (mContactVM.getCurrentlyViewing().getValue().getImage() != null) { // show image if not null
-            mContactVM.setCapturedImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
+            mContactVM.setImage(Util.decodeBase64ToBitmap(mContactVM.getCurrentlyViewing().getValue().getImage()));
         }
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
