@@ -35,7 +35,7 @@
                 android:layout_width="@dimen/contact_img_width"
                 android:layout_height="@dimen/contact_img_width"
                 android:background="@drawable/circle_bg"
-                android:padding="@dimen/small_margin"
+                android:scaleType="centerInside"
                 android:src="@drawable/baseline_person_24" />
 
 
