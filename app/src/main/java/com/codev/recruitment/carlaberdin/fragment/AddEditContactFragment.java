@@ -116,7 +116,7 @@ public class AddEditContactFragment extends Fragment {
                             lastName,
                             phone,
                             email,
-                            mContactVM.getImageInBase64(),
+                            mContactVM.getImageInBase64() != null ? mContactVM.getImageInBase64() : currentlyViewing.getImage(), // only replace if there's a new image captured
                             currentlyViewing.isFavorite());
                     // set currently viewing as clone of the new Contact object,  currently viewing is used in data binding
                     // if not cloned, in case of encryption ON, encrypted data will be momentarily displayed in ContactSummary screen upon update
