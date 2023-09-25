@@ -4,24 +4,26 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.util.Base64
 import javax.crypto.Cipher
-import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-class Crypto(val encryptionSettings: EncryptionSettings) {
+/**
+ * For encryption/description of data using AES256
+ */
+class Crypto(private val encryptionSettings: EncryptionSettings) {
 
     private lateinit var cipherEncrypt: Cipher
     private lateinit var cipherDecrypt: Cipher
 
-
     init {
+        // only initialize if encryption ON
         if (encryptionSettings.isEncryptionOn) {
             cipherEncrypt = initCipher(Cipher.ENCRYPT_MODE)
             cipherDecrypt = initCipher(Cipher.DECRYPT_MODE)
         }
     }
 
-    fun initCipher(opMode: Int): Cipher {
+    private fun initCipher(opMode: Int): Cipher {
         val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
         val keySpec = SecretKeySpec(encryptionSettings.key.toByteArray(Charsets.UTF_8), "AES")
         val ivSpec = IvParameterSpec(encryptionSettings.IV.toByteArray(Charsets.UTF_8))
@@ -34,7 +36,7 @@ class Crypto(val encryptionSettings: EncryptionSettings) {
         try {
             val cipherText = cipherEncrypt.doFinal(input)
             return Base64.getEncoder().encodeToString(cipherText)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
         return ""
     }
@@ -45,7 +47,7 @@ class Crypto(val encryptionSettings: EncryptionSettings) {
             val toDecode = Base64.getDecoder().decode(input)
             val decryptedText = cipherDecrypt.doFinal(toDecode)
             return String(decryptedText)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
         return ""
     }

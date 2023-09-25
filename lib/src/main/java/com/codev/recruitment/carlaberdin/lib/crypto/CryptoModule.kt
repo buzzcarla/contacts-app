@@ -1,6 +1,5 @@
 package com.codev.recruitment.carlaberdin.lib.crypto
 
-import com.codev.recruitment.carlaberdin.repository.ContactDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,7 +13,6 @@ class CryptoModule(encryptionSettings: EncryptionSettings) {
     init {
         this.encryptionSettings = encryptionSettings
     }
-
 
     @Singleton
     @Provides
