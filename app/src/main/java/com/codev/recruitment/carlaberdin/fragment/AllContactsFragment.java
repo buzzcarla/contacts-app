@@ -86,6 +86,13 @@ public class AllContactsFragment extends Fragment {
             }
         });
 
+        binding.btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_allContactsFragment_to_addEditContactFragment);
+            }
+        });
+
         // mContactVM.addContact(new Contact("John", "Wayne", "+639874851203", "john.wayne@email.com", ""));
 
 

@@ -17,10 +17,22 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_allContactsFragment_to_addEditContactFragment"
+            app:destination="@id/addEditContactFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/contactSummaryFragment"
         android:name="com.codev.recruitment.carlaberdin.fragment.ContactSummaryFragment"
         android:label="fragment_contact_summary"
         tools:layout="@layout/fragment_contact_summary" />
+    <fragment
+        android:id="@+id/addEditContactFragment"
+        android:name="com.codev.recruitment.carlaberdin.fragment.AddEditContactFragment"
+        android:label="fragment_add_edit_contact"
+        tools:layout="@layout/fragment_add_edit_contact" />
 </navigation>
