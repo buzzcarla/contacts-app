@@ -31,6 +31,8 @@ import com.codev.recruitment.carlaberdin.repository.data.Contact;
 import com.codev.recruitment.carlaberdin.utils.Util;
 import com.codev.recruitment.carlaberdin.vm.ContactViewModel;
 
+import java.util.Objects;
+
 public class AddEditContactFragment extends Fragment {
 
     private FragmentAddEditContactBinding binding;
@@ -101,7 +103,12 @@ public class AddEditContactFragment extends Fragment {
                 navController.popBackStack();
             }
         });
-
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBack();
+            }
+        });
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -202,8 +209,33 @@ public class AddEditContactFragment extends Fragment {
         if (isFieldEmpty()) {
             navController.popBackStack();
         } else {
+            Contact currentlyViewing = mContactVM.getCurrentlyViewing().getValue();
+            if (currentlyViewing != null) {
+                // Edit, compare
+                if (!diffCheck(currentlyViewing)) {
+                    // no changes
+                    navController.popBackStack();
+                    return;
+                }
+            }
             showAlert(ALERT_DISCARD);
         }
+    }
+
+    private boolean diffCheck(Contact contact) {
+        if (!contact.getFirstName().equals(binding.edittextFirstName.getText().toString()))
+            return true;
+        if (!contact.getLastName().equals(binding.edittextLastName.getText().toString()))
+            return true;
+        if (!contact.getPhoneNumber().equals(binding.edittextPhone.getText().toString()))
+            return true;
+        if (!Objects.equals(contact.getEmail(), binding.edittextEmail.getText().toString()))
+            return true;
+        if (mContactVM.getImageInBase64() != null)
+            return true;
+
+        return false;
+
     }
 
     private boolean isFieldEmpty() {

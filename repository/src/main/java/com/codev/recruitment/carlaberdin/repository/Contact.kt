@@ -26,4 +26,8 @@ data class Contact(
     constructor(firstName: String, lastName: String, phoneNumber: String, email: String, image: String, isFavorite: Boolean) : this(0, firstName, lastName, phoneNumber, email, image, isFavorite) {
 
     }
+
+    override fun toString(): String {
+        return super.toString()
+    }
 }
