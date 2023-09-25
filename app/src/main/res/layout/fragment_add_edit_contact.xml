@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.codev.recruitment.carlaberdin.vm.ContactViewModel" />
+    </data>
 
 
     <RelativeLayout
@@ -25,8 +30,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/general_margin"
             android:layout_below="@id/btn_back"
+            android:layout_marginStart="@dimen/general_margin"
             android:layout_marginEnd="@dimen/general_margin"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -47,73 +52,73 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/large_padding"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <EditText
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/custom_edittext_height"
                     android:layout_weight="1"
+                    android:background="@drawable/edittext_border"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="@dimen/general_margin"
+                    android:drawableTint="@android:color/tab_indicator_text"
                     android:hint="@string/first_name"
-                    app:startIconDrawable="@drawable/baseline_person_24">
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:padding="@dimen/general_margin"
+                    android:text='@{viewModel.currentlyViewing.firstName ?? ""}'
+                    android:textSize="@dimen/medium2_text" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <EditText
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/custom_edittext_height"
                     android:layout_marginStart="@dimen/small_margin"
                     android:layout_weight="1"
-                    android:hint="@string/last_name">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:background="@drawable/edittext_border"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:padding="@dimen/general_margin"
+                    android:text='@{viewModel.currentlyViewing.lastName ?? ""}'
+                    android:textSize="@dimen/medium2_text" />
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/general_margin"
+                android:layout_height="@dimen/custom_edittext_height"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@drawable/edittext_border"
+                android:drawableStart="@drawable/baseline_local_phone_24"
+                android:drawablePadding="@dimen/general_margin"
+                android:drawableTint="@android:color/tab_indicator_text"
                 android:hint="@string/phone"
-                app:startIconDrawable="@drawable/baseline_local_phone_24">
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="@dimen/general_margin"
+                android:text='@{viewModel.currentlyViewing.phoneNumber ?? ""}'
+                android:textSize="@dimen/medium2_text" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/general_margin"
+                android:layout_height="@dimen/custom_edittext_height"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@drawable/edittext_border"
+                android:drawableStart="@drawable/baseline_email_24"
+                android:drawablePadding="@dimen/general_margin"
+                android:drawableTint="@android:color/tab_indicator_text"
                 android:hint="@string/email"
-                app:startIconDrawable="@drawable/baseline_email_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"  />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="@dimen/general_margin"
+                android:text='@{viewModel.currentlyViewing.email ?? ""}'
+                android:textSize="@dimen/medium2_text" />
 
         </LinearLayout>
 
