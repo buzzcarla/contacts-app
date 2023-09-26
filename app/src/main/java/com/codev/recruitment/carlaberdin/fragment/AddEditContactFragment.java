@@ -43,6 +43,13 @@ public class AddEditContactFragment extends Fragment {
     // code for the Alert dialog
     private final int ALERT_SAVE = 0;
     private final int ALERT_DISCARD = 1;
+    private final int ALERT_INVALID_EMAIL = 2;
+
+    private final int VALIDATION_OK = 1;
+    private final int VALIDATION_FAIL_EMAIL = 2;
+    private final int VALIDATION_FAIL_PHONE = 3;
+    private final int VALIDATION_FAIL_EMPTY_FIELDS = 4;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +112,8 @@ public class AddEditContactFragment extends Fragment {
             String email = mBinding.edittextEmail.getText().toString();
 
             // check if inputs are valid
-            if (isInputsValid(firstName, lastName, phone, email)) {
+            int validation = isInputsValid(firstName, lastName, phone, email);
+            if (VALIDATION_OK == validation) {
                 Contact contact;
                 Contact currentlyViewing = mContactVM.getCurrentlyViewing().getValue();
                 if (currentlyViewing != null) {
@@ -140,7 +148,15 @@ public class AddEditContactFragment extends Fragment {
                 mNavController.popBackStack();
             } else {
                 // invalid input
-                showAlert(ALERT_SAVE);
+                switch (validation) {
+                    case VALIDATION_FAIL_EMPTY_FIELDS:
+                        showAlert(ALERT_SAVE);
+                        break;
+                    case VALIDATION_FAIL_EMAIL:
+                        showAlert(ALERT_INVALID_EMAIL);
+                        break;
+
+                }
             }
         });
 
@@ -176,14 +192,24 @@ public class AddEditContactFragment extends Fragment {
         super.onDestroy();
     }
 
-    // Check if there is any valid information to save
-    private boolean isInputsValid(String firstName, String lastName, String phone, String email) {
+    // Check if there is any valid information to save and if email is valid
+    private int isInputsValid(String firstName, String lastName, String phone, String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (!firstName.isEmpty() || !lastName.isEmpty()) {
-            return !phone.isEmpty() || !email.isEmpty();
+            if (!email.isEmpty()) {
+                if (!email.matches(emailPattern)) {
+                    // invalid email
+                    return VALIDATION_FAIL_EMAIL;
+                } else {
+                    return VALIDATION_OK;
+                }
+            }
+            if (!phone.isEmpty()) {
+                return VALIDATION_OK;
+            }
         }
-        return false;
-
+        return VALIDATION_FAIL_EMPTY_FIELDS;
     }
 
     private Contact generateContactObject(int id, String firstName, String lastName, String phone, String email, String imgBase64, boolean isFavorite) {
@@ -270,6 +296,16 @@ public class AddEditContactFragment extends Fragment {
                 break;
             case ALERT_SAVE:
                 builder1.setMessage(R.string.save_alert);
+                builder1.setPositiveButton(
+                        getString(android.R.string.ok),
+                        (dialog, id) -> {
+                            // do nothing
+                        });
+
+
+                break;
+            case ALERT_INVALID_EMAIL:
+                builder1.setMessage(R.string.email_alert);
                 builder1.setPositiveButton(
                         getString(android.R.string.ok),
                         (dialog, id) -> {
