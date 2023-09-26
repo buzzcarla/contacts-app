@@ -68,6 +68,8 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:padding="@dimen/general_margin"
+                    android:textColorHint="@android:color/tab_indicator_text"
+                    android:textColor="@android:color/black"
                     android:text='@{viewModel.currentlyViewing.firstName ?? ""}'
                     android:textSize="@dimen/medium2_text" />
 
@@ -83,6 +85,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLines="1"
+                    android:textColorHint="@android:color/tab_indicator_text"
+                    android:textColor="@android:color/black"
                     android:padding="@dimen/general_margin"
                     android:text='@{viewModel.currentlyViewing.lastName ?? ""}'
                     android:textSize="@dimen/medium2_text" />
@@ -101,6 +105,8 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLines="1"
+                android:textColorHint="@android:color/tab_indicator_text"
+                android:textColor="@android:color/black"
                 android:padding="@dimen/general_margin"
                 android:text='@{viewModel.currentlyViewing.phoneNumber ?? ""}'
                 android:textSize="@dimen/medium2_text" />
@@ -117,6 +123,8 @@
                 android:drawableTint="@android:color/tab_indicator_text"
                 android:hint="@string/email"
                 android:imeOptions="actionDone"
+                android:textColorHint="@android:color/tab_indicator_text"
+                android:textColor="@android:color/black"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="@dimen/general_margin"
