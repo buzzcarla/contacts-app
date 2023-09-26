@@ -94,6 +94,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/general_margin"
+                        android:autoLink="phone"
+                        android:textColor="@color/clickable_text_blue"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:text="@{viewModel.currentlyViewing.phoneNumber}"
                         android:textSize="@dimen/large_text" />
                 </LinearLayout>
@@ -128,6 +132,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/general_margin"
+                    android:autoLink="email"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="@color/clickable_text_blue"
                     android:text="@{viewModel.currentlyViewing.email}"/>
             </LinearLayout>
 
